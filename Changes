@@ -1,5 +1,11 @@
 LIST OF CHANGES
 
+release 37.5
+ - a utility for repairing unset foreign keys from npg product table to
+   the flowcell table in the ml warehouse
+ - minimise time tables are locked for when loading data to the warehouse
+ - use fast batch insert mode
+
 release 37.4
  - fixed a bug in recognising an allowed error in lims data retrieval
 

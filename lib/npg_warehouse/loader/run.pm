@@ -7,14 +7,13 @@ use List::MoreUtils qw/ any none /;
 use Readonly;
 use Carp;
 
-use WTSI::DNAP::Warehouse::Schema;
-use npg_tracking::Schema;
-use npg_qc::Schema;
 use npg_qc::autoqc::qc_store;
 
 use npg_warehouse::loader::autoqc;
 use npg_warehouse::loader::qc;
 use npg_warehouse::loader::npg;
+
+extends 'npg_warehouse::loader::base';
 
 with qw/
    npg_tracking::glossary::run
@@ -57,28 +56,6 @@ npg_warehouse::loader::run
 
 Run id
 
-=head2 verbose
-
-Verbose boolean flag
-
-=cut
-has 'verbose'      => ( isa        => 'Bool',
-                        is         => 'ro',
-                        required   => 0,
-                        default    => 0,
-);
-
-=head2 explain
-
-Boolean flag activating logging of linking to the flowcell table problems
-
-=cut
-has 'explain'      => ( isa        => 'Bool',
-                        is         => 'ro',
-                        required   => 0,
-                        default    => 0,
-);
-
 =head2 id_flowcell_lims
 
 LIMs specific flowcell id
@@ -108,26 +85,7 @@ DBIx result set from which relevant flowcell rows can be retrieved
 =cut
 sub iseq_flowcell {
   my $self = shift;
-  return $self->_schema_wh->resultset($FLOWCELL_LIMS_TABLE_NAME);
-}
-
-=head2 _schema_wh
-
-DBIx schema object for the warehouse database
-
-=cut
-has '_schema_wh'  =>  ( isa        => 'WTSI::DNAP::Warehouse::Schema',
-                        is         => 'ro',
-                        required   => 0,
-                        lazy_build => 1,
-);
-sub _build__schema_wh {
-  my $self = shift;
-  my $schema = WTSI::DNAP::Warehouse::Schema->connect();
-  if($self->verbose) {
-    carp q[Connected to the warehouse db, schema object ] . $schema;
-  }
-  return $schema;
+  return $self->schema_wh->resultset($FLOWCELL_LIMS_TABLE_NAME);
 }
 
 has ['_rlt_column_names', '_pt_column_names'] =>  (
@@ -138,7 +96,7 @@ has ['_rlt_column_names', '_pt_column_names'] =>  (
 );
 sub _column_names {
   my ($self, $table) = @_;
-  my @columns = $self->_schema_wh->resultset($table)->result_source->columns();
+  my @columns = $self->schema_wh->resultset($table)->result_source->columns();
   return \@columns;
 }
 sub _build__rlt_column_names {
@@ -212,44 +170,6 @@ sub _build__flowcell_table_fks_exist {
   return scalar keys %{$self->_flowcell_table_fks} ? 1 : 0;
 }
 
-=head2 _schema_npg
-
-DBIx schema object for the npg database
-
-=cut
-has '_schema_npg' =>  ( isa        => 'npg_tracking::Schema',
-                        is         => 'ro',
-                        required   => 0,
-                        lazy_build => 1,
-);
-sub _build__schema_npg {
-  my $self = shift;
-  my $schema = npg_tracking::Schema->connect();
-  if($self->verbose) {
-    warn q[Connected to the npg db, schema object ] . $schema . qq[\n];
-  }
-  return $schema;
-}
-
-=head2 _schema_qc
-
-DBIx schema object for the NPG QC database
-
-=cut
-has '_schema_qc' =>   ( isa        => 'npg_qc::Schema',
-                        is         => 'ro',
-                        required   => 0,
-                        lazy_build => 1,
-);
-sub _build__schema_qc {
-  my $self = shift;
-  my $schema = npg_qc::Schema->connect();
-  if($self->verbose) {
-    warn q[Connected to the qc db, schema object ] . $schema . qq[\n];
-  }
-  return $schema;
-}
-
 =head2 _autoqc_store
 
 A driver to retrieve autoqc objects. If DB storage is not available,
@@ -266,7 +186,7 @@ sub _build__autoqc_store {
   my $self = shift;
   return npg_qc::autoqc::qc_store->new(use_db    => 1,
                                        verbose   => $self->verbose,
-                                       qc_schema => $self->_schema_qc);
+                                       qc_schema => $self->schema_qc);
 }
 
 =head2 _run_lane_rs
@@ -281,7 +201,7 @@ has '_run_lane_rs' =>     ( isa        => 'ArrayRef',
 );
 sub _build__run_lane_rs {
   my $self = shift;
-  my @all_rs = $self->_schema_npg->resultset('RunLane')->search(
+  my @all_rs = $self->schema_npg->resultset('RunLane')->search(
     { q[me.id_run] => $self->id_run},
     {
       prefetch => q[run],
@@ -314,7 +234,7 @@ sub _build__autoqc_data {
     return npg_warehouse::loader::autoqc->new(
       autoqc_store => $self->_autoqc_store,
       verbose => $self->verbose,
-      plex_key => $PLEXES_KEY)->retrieve($self->id_run, $self->_schema_npg);
+      plex_key => $PLEXES_KEY)->retrieve($self->id_run, $self->schema_npg);
   }
   return {};
 }
@@ -327,7 +247,7 @@ has '_npg_data_retriever'   =>   ( isa        => 'npg_warehouse::loader::npg',
 );
 sub _build__npg_data_retriever {
   my $self = shift;
-  return npg_warehouse::loader::npg->new(schema_npg => $self->_schema_npg,
+  return npg_warehouse::loader::npg->new(schema_npg => $self->schema_npg,
                                          verbose    => $self->verbose,
                                          id_run     => $self->id_run);
 }
@@ -359,7 +279,7 @@ has '_npgqc_data_retriever'   => ( isa        => 'npg_warehouse::loader::qc',
 );
 sub _build__npgqc_data_retriever {
   my $self = shift;
-  return npg_warehouse::loader::qc->new(schema_qc         => $self->_schema_qc,
+  return npg_warehouse::loader::qc->new(schema_qc         => $self->schema_qc,
                                         verbose           => $self->verbose,
                                         reverse_end_index => $REVERSE_END_INDEX,
                                         plex_key          => $PLEXES_KEY);
@@ -620,45 +540,60 @@ sub _load_table {
   my ($self, $table) = @_;
 
   if (scalar keys $self->_data->{$table} == 0) {
+    if ($self->verbose) {
+      warn qq[No data for table $table\n];
+    }
     return 0;
   }
 
-  my $rs = $self->_schema_wh->resultset($table);
-
-  if ($table eq $PRODUCT_TABLE_NAME) {
-    $rs->search({'id_run' => $self->id_run,})->delete();
-  }
-
-  my $count = 0;
+  my @rows = ();
   foreach my $row (@{$self->_data->{$table}}) {
 
     $self->_filter_column_names($table, $row);
-
-    if($self->verbose) {
-      my $message = defined $row->{'tag_index'} ? q[tag_index ] . $row->{'tag_index'} : q[];
-      $message = sprintf 'Creating record in table %s for run %i position %i %s',
-         $table, $self->id_run,  $row->{'position'}, $message;
-      warn "$message\n";
-    }
-
     my @test = keys %{$row};
     @test = grep { $_ !~ /\Aid_run|position|tag_index\Z/smx } @test;
     if (!@test) { # no useful data
       next;
     }
 
-    if ($table eq $PRODUCT_TABLE_NAME) {
-      if ($self->_flowcell_table_fks_exist) {
-        $self->_add_lims_fk($row);
-      }
-      $rs->create($row);
-    } else {
-      $rs->update_or_create($row);
+    if ($table eq $PRODUCT_TABLE_NAME && $self->_flowcell_table_fks_exist) {
+      $self->_add_lims_fk($row);
     }
-    $count++;
+
+    if ($self->verbose) {
+      my $message = defined $row->{'tag_index'} ? q[tag_index ] . $row->{'tag_index'} : q[];
+      warn sprintf 'Will create record in table %s for run %i position %i %s%s',
+         $table, $self->id_run,  $row->{'position'}, $message, qq[\n];
+    }
+    push @rows, $row;
   }
 
-  return $count;
+  my $rs = $self->schema_wh->resultset($table);
+
+  my $transaction;
+  if ($table eq $PRODUCT_TABLE_NAME) {
+    $transaction = sub {
+      $rs->search({'id_run' => $self->id_run,})->delete();
+      if ($self->schema_wh->storage->connect_info->[0] =~ /dbi:SQLite/smx) {
+        # SQLite driver does not support batch inserts; by assigning a return value
+        # to a variable we are forcing DBIx to do execute multiple create statements.
+        my $r = $rs->populate(\@rows);
+      } else {
+        if ($self->verbose) {
+          warn qq[Using fast batch insert on non-sqlite database\n];
+	}
+        $rs->populate(\@rows);
+      }
+    }
+  } else {
+    $transaction = sub {
+      map { $rs->update_or_create($_) } @rows;
+    }
+  }
+
+  $self->schema_wh->txn_do($transaction);
+
+  return scalar @rows;
 }
 
 =head2 load
@@ -669,9 +604,11 @@ Loads data for one sequencing run to the warehouse
 sub load {
   my ($self) = @_;
 
+  my $id_run = $self->id_run;
+
   if (! @{$self->_run_lane_rs}) {
     if($self->verbose) {
-      warn q[No lanes for run ] . $self->id_run . qq[, not loading\n];
+      warn qq[No lanes for run $id_run, not loading\n];
     }
     return;
   }
@@ -679,7 +616,7 @@ sub load {
   if ($self->_old_forward_id_run) {
     if ($self->verbose) {
       warn sprintf 'Run %i is an old reverse run for %i, not loading.%s',
-        $self->id_run, $self->_old_forward_id_run, qq[\n];
+        $id_run, $self->_old_forward_id_run, qq[\n];
     }
     return;
   }
@@ -693,23 +630,19 @@ sub load {
 
   if ($data) {
 
-    my $transaction = sub {
+    try {
       foreach my $table (($RUN_LANE_TABLE_NAME, $PRODUCT_TABLE_NAME)) {
         my $count = $self->_load_table($table);
         if ($self->verbose) {
-          warn qq[Loaded $count rows to table $table for run ] . $self->id_run .qq[\n];
+          warn qq[Loaded $count rows to table $table for run $id_run\n];
 	}
       }
-    };
-
-    try {
-      $self->_schema_wh->txn_do($transaction);
     } catch {
       my $err = $_;
       if ($err =~ /Rollback failed/sxm) {
         croak $err;
       }
-      warn q[Failed to load ] . $self->id_run . qq[: $err\n];
+      warn qq[Failed to load run $id_run: $err\n];
     };
   }
 
@@ -743,17 +676,11 @@ __END__
 
 =item MooseX::StrictConstructor
 
-=item WTSI::DNAP::Warehouse::Schema
-
 =item WTSI::DNAP::Warehouse::Schema::Query::IseqFlowcell
-
-=item npg_tracking::Schema
 
 =item npg_tracking::glossary::run
 
 =item npg_tracking::glossary::flowcell
-
-=item npg_qc::Schema
 
 =item npg_qc::autoqc::qc_store
 
@@ -775,7 +702,7 @@ Marina Gourtovaia
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (C) 2014 Genome Research Limited
+Copyright (C) 2015 Genome Research Limited
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

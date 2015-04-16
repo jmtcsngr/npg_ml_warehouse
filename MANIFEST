@@ -2,14 +2,18 @@ Build.PL
 Changes
 MANIFEST
 README
+bin/npg_mlwarehouse_fkrepair
 bin/npg_run_statuses2mlwarehouse
 bin/npg_runs2mlwarehouse
+lib/npg_warehouse/fk_repair.pm
 lib/npg_warehouse/loader/autoqc.pm
+lib/npg_warehouse/loader/base.pm
 lib/npg_warehouse/loader/npg.pm
 lib/npg_warehouse/loader/qc.pm
 lib/npg_warehouse/loader/run_status.pm
 lib/npg_warehouse/loader/run.pm
 lib/st/api/lims/ml_warehouse.pm
+t/10-npg_warehouse-fkrepair.t
 t/10-npg_warehouse-loader-autoqc.t
 t/10-npg_warehouse-loader-npg.t
 t/10-npg_warehouse-loader-qc.t
@@ -43,6 +47,8 @@ t/data/fixtures/npgqc/TagMetrics.yml
 t/data/fixtures/wh/000-Sample.yml
 t/data/fixtures/wh/000-Study.yml
 t/data/fixtures/wh/100-IseqFlowcell.yml
+t/data/fixtures/wh_npg/200-IseqProductMetric.yml
+t/data/fixtures/wh_npg/200-IseqRunLaneMetric.yml
 t/data/fixtures_stlims_wh/000-Sample.yml
 t/data/fixtures_stlims_wh/000-Study.yml
 t/data/fixtures_stlims_wh/100-IseqFlowcell.yml

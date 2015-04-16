@@ -1,816 +1,680 @@
 ---
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10485
   position: 1
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10486
   position: 2
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10487
   position: 3
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10488
   position: 4
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10489
   position: 5
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10490
   position: 6
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10491
   position: 7
   tile_count: 330
   tracks: 3
-- good_bad: 0
-  id_run: 1246
+- id_run: 1246
   id_run_lane: 10492
   position: 8
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9725
   position: 1
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9726
   position: 2
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9727
   position: 3
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9728
   position: 4
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9729
   position: 5
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9730
   position: 6
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9731
   position: 7
   tile_count: 330
   tracks: 3
-- good_bad: 1
-  id_run: 1272
+- id_run: 1272
   id_run_lane: 9732
   position: 8
   tile_count: 330
   tracks: 3
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26136
   position: 1
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26137
   position: 2
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26138
   position: 3
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26139
   position: 4
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26140
   position: 5
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26141
   position: 6
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26142
   position: 7
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3323
+- id_run: 3323
   id_run_lane: 26143
   position: 8
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26360
   position: 1
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26361
   position: 2
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26362
   position: 3
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26363
   position: 4
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26364
   position: 5
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26365
   position: 6
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26366
   position: 7
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3351
+- id_run: 3351
   id_run_lane: 26367
   position: 8
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27552
   position: 1
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27553
   position: 2
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27554
   position: 3
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27555
   position: 4
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27556
   position: 5
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27557
   position: 6
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27558
   position: 7
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3500
+- id_run: 3500
   id_run_lane: 27559
   position: 8
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27704
   position: 1
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27705
   position: 2
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27706
   position: 3
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27707
   position: 4
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27708
   position: 5
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27709
   position: 6
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27710
   position: 7
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3519
+- id_run: 3519
   id_run_lane: 27711
   position: 8
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27784
   position: 1
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27785
   position: 2
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27786
   position: 3
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27787
   position: 4
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27788
   position: 5
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27789
   position: 6
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27790
   position: 7
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3529
+- id_run: 3529
   id_run_lane: 27791
   position: 8
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28528
   position: 1
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28529
   position: 2
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28530
   position: 3
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28531
   position: 4
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28532
   position: 5
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28533
   position: 6
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28534
   position: 7
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3622
+- id_run: 3622
   id_run_lane: 28535
   position: 8
   tile_count: 100
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31272
   position: 1
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31273
   position: 2
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31274
   position: 3
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31275
   position: 4
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31276
   position: 5
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31277
   position: 6
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31278
   position: 7
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 3965
+- id_run: 3965
   id_run_lane: 31279
   position: 8
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31752
   position: 1
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31753
   position: 2
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31754
   position: 3
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31755
   position: 4
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31756
   position: 5
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31757
   position: 6
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31758
   position: 7
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4025
+- id_run: 4025
   id_run_lane: 31759
   position: 8
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32672
   position: 1
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32673
   position: 2
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32674
   position: 3
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32675
   position: 4
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32676
   position: 5
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32677
   position: 6
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32678
   position: 7
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4138
+- id_run: 4138
   id_run_lane: 32679
   position: 8
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34232
   position: 1
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34233
   position: 2
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34234
   position: 3
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34235
   position: 4
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34236
   position: 5
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34237
   position: 6
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34238
   position: 7
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4333
+- id_run: 4333
   id_run_lane: 34239
   position: 8
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37968
   position: 1
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37969
   position: 2
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37970
   position: 3
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37971
   position: 4
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37972
   position: 5
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37973
   position: 6
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37974
   position: 7
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4799
+- id_run: 4799
   id_run_lane: 37975
   position: 8
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52626
   position: 1
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52627
   position: 2
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52628
   position: 3
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52629
   position: 4
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52630
   position: 5
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52631
   position: 6
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52632
   position: 7
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6624
+- id_run: 6624
   id_run_lane: 52633
   position: 8
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52770
   position: 1
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52771
   position: 2
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52772
   position: 3
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52773
   position: 4
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52774
   position: 5
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52775
   position: 6
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52776
   position: 7
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 6642
+- id_run: 6642
   id_run_lane: 52777
   position: 8
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55534
   position: 1
   tile_count: 32
   tracks: 4
-- good_bad: 0
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55535
   position: 2
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55536
   position: 3
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55537
   position: 4
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55538
   position: 5
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55539
   position: 6
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55540
   position: 7
   tile_count: 32
   tracks: 4
-- good_bad: 1
-  id_run: 6998
+- id_run: 6998
   id_run_lane: 55541
   position: 8
   tile_count: 32
   tracks: 4
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35456
   position: 1
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35457
   position: 2
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35458
   position: 3
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35459
   position: 4
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35460
   position: 5
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35461
   position: 6
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35462
   position: 7
   tile_count: 120
   tracks: 2
-- good_bad: ~
-  id_run: 4486
+- id_run: 4486
   id_run_lane: 35463
   position: 8
   tile_count: 120

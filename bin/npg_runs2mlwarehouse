@@ -69,9 +69,9 @@ foreach my $id (@{$id_run}) {
       verbose     => $verbose,
       explain     => $explain,
       id_run      => $id,
-      _schema_npg => $npg_schema,
-      _schema_qc  => $qc_schema,
-      _schema_wh  => $wh_schema,
+      schema_npg => $npg_schema,
+      schema_qc  => $qc_schema,
+      schema_wh  => $wh_schema,
   );
   if (!$dry_run) {
     $loader->load();

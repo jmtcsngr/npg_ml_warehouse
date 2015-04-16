@@ -55,9 +55,9 @@ my $user_id = 7;
 my $plex_key = q[plexes];
 
 my $init = { _autoqc_store => $autoqc_store,
-             _schema_npg   => $schema_npg, 
-             _schema_qc    => $schema_qc, 
-             _schema_wh    => $schema_wh,
+             schema_npg   => $schema_npg, 
+             schema_qc    => $schema_qc, 
+             schema_wh    => $schema_wh,
              verbose       => 0,
              explain       => 0,
            };
@@ -267,7 +267,7 @@ my $init = { _autoqc_store => $autoqc_store,
   my $rs = $schema_wh->resultset($PRODUCT_TABLE_NAME)->search(
        {id_run => $id_run, tag_index => [1,2,3,4]},
   );
-  is ($rs->count, 20, '20 rows in the plex table for run 4799 for plexes[1-4]');
+  is ($rs->count, 20, '20 rows in the product table for run 4799 for plexes[1-4]');
 
   my $expected_tag_info =  {
     1 => {tag_decode_percent=>12.99, tag_sequence=>'ATCACGT',},

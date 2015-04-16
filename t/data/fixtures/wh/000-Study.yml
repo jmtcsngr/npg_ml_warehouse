@@ -4,8 +4,8 @@
   accession_number: ERP000251
   aligned: 1
   array_express_accession_number: ~
-  contains_human_dna: No
-  contaminated_human_dna: No
+  contains_human_dna: 0
+  contaminated_human_dna: 0
   created: 2010-06-25 11:19:52
   data_access_group: ~
   data_release_delay_period: ~
@@ -38,8 +38,8 @@
   accession_number: EGAS00001000148
   aligned: 1
   array_express_accession_number: ~
-  contains_human_dna: Yes
-  contaminated_human_dna: No
+  contains_human_dna: 1
+  contaminated_human_dna: 0
   created: 2011-09-27 08:29:53
   data_access_group: ~
   data_release_delay_period: ~
@@ -73,8 +73,8 @@
   accession_number: ERP000893
   aligned: 1
   array_express_accession_number: ~
-  contains_human_dna: No
-  contaminated_human_dna: No
+  contains_human_dna: 0
+  contaminated_human_dna: 0
   created: 2009-02-12 16:53:57
   data_access_group: ~
   data_release_delay_period: ~

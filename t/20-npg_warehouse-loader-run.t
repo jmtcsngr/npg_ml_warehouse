@@ -36,7 +36,7 @@ SKIP: {
 
   foreach my $id_run (@runs) {
     lives_ok {npg_warehouse::loader::run->new( 
-                      _schema_wh => $schema_wh,
+                      schema_wh => $schema_wh,
                       verbose    => 0,
                       id_run     => $id_run)->load(); } "run $id_run loaded";
 

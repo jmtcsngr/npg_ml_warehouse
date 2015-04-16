@@ -22,6 +22,7 @@ if($EVAL_ERROR) {
 	-exclude  => [ 'tidy',
                        'Documentation::RequirePodAtEnd',
                        'NamingConventions::Capitalization',
+                       'ErrorHandling::RequireCarping',
                      ],
   );
 
