@@ -1,5 +1,9 @@
 LIST OF CHANGES
 
+release 37.5.1
+ - DBIx batch insert does not work correctly, leaves some columns empty.
+   Reverted to per-row insert.
+
 release 37.5
  - a utility for repairing unset foreign keys from npg product table to
    the flowcell table in the ml warehouse

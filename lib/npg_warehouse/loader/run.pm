@@ -574,21 +574,17 @@ sub _load_table {
   if ($table eq $PRODUCT_TABLE_NAME) {
     $transaction = sub {
       $rs->search({'id_run' => $self->id_run,})->delete();
-      if ($self->schema_wh->storage->connect_info->[0] =~ /dbi:SQLite/smx) {
-        # SQLite driver does not support batch inserts; by assigning a return value
-        # to a variable we are forcing DBIx to do execute multiple create statements.
-        my $r = $rs->populate(\@rows);
-      } else {
-        if ($self->verbose) {
-          warn qq[Using fast batch insert on non-sqlite database\n];
-	}
-        $rs->populate(\@rows);
-      }
-    }
+      # Whithout the assignment this should work as a fast batch load.
+      # However, this does not see to work correctly - we got rows with
+      # some data missing. The assignment forces the per-row loading,
+      # therefore the only advantage of using this notation is not
+      # writing a loop.
+      my $r = $rs->populate(\@rows);
+    };
   } else {
     $transaction = sub {
       map { $rs->update_or_create($_) } @rows;
-    }
+    };
   }
 
   $self->schema_wh->txn_do($transaction);
