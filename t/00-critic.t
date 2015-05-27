@@ -23,6 +23,7 @@ if($EVAL_ERROR) {
                        'Documentation::RequirePodAtEnd',
                        'NamingConventions::Capitalization',
                        'ErrorHandling::RequireCarping',
+                       'Miscellanea::RequireRcsKeywords',
                      ],
   );
 
