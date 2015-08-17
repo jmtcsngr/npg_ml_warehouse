@@ -1,5 +1,12 @@
 LIST OF CHANGES
 
+release 37.6.1
+ - update/fix tests to comply with ml_warehouse v1.5 and npg_tracking v84.7 
+
+release 37.6
+ - delay wh loader till the run is finished so that we have time to
+   update the number of lanes in the npg_tracking db
+
 release 37.5.1
  - DBIx batch insert does not work correctly, leaves some columns empty.
    Reverted to per-row insert.

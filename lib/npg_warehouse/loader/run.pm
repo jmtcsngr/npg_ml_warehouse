@@ -617,6 +617,13 @@ sub load {
     return;
   }
 
+  if (!$self->_npg_data_retriever->run_ready2load) {
+    if($self->verbose) {
+      warn qq[Too early to load run $id_run, not loading\n];
+    }
+    return;
+  }
+
   my $data;
   try {
     $data = $self->_data();

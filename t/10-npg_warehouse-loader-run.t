@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 240;
+use Test::More tests => 241;
 use Test::Exception;
 use Test::Warn;
 use Test::Deep;
@@ -608,6 +608,19 @@ my $init = { _autoqc_store => $autoqc_store,
   $row = $rs->next;
   is($row->insert_size_num_modes, 2, 'num modes');
   is($row->insert_size_normal_fit_confidence, 1, 'confidence capped to 1');
+}
+
+{
+  my %in = %{$init};
+  $in{'id_run'} = 1246;
+  $in{'verbose'} = 1;
+  my $sid = $schema_npg->resultset('RunStatusDict')->search({description => 'run in progress'})->next->id_run_status_dict();
+  $schema_npg->resultset('Run')->find(1246)->current_run_status->update( {id_run_status_dict => $sid,} );
+  my $loader = npg_warehouse::loader::run->new(\%in);
+  warnings_like { $loader->load() } [
+    qr/Run status is \'run in progress\'/,
+    qr/Too early to load run 1246, not loading/],
+    'warning about not loading an early stage run';
 }
 
 1;

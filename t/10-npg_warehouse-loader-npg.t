@@ -1,9 +1,10 @@
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More tests => 27;
 use Test::Exception;
 use Test::Deep;
 use Moose::Meta::Class;
+use DateTime;
 use npg_testing::db;
 
 use_ok('npg_warehouse::loader::npg');
@@ -45,10 +46,27 @@ lives_ok{ $schema_npg  = $util->create_test_db(q[npg_tracking::Schema],
 }
 
 {
-  is(npg_warehouse::loader::npg->new(schema_npg => $schema_npg, id_run => 1272)->run_is_cancelled(),
-                                    0, 'run 1272 is not cancelled');
-  is(npg_warehouse::loader::npg->new(schema_npg => $schema_npg, id_run => 3519)->run_is_cancelled(),
-                                    1, 'run 3519 is cancelled');
+  my $n = npg_warehouse::loader::npg->new(schema_npg => $schema_npg, id_run => 1272);
+  is($n->run_is_cancelled(), 0, 'run 1272 is not cancelled');
+  cmp_deeply($n->instrument_info, {name => q[IL20], model => q[1G],}, 'instr info for run 1272');
+
+  $n = npg_warehouse::loader::npg->new(schema_npg => $schema_npg, id_run => 3519);
+  is($n->run_is_cancelled(), 1, 'run 3519 is cancelled');
+  cmp_deeply($n->instrument_info, {name => q[IL42], model => q[HK],}, 'instr info for run 3519');
+
+  my $run = $schema_npg->resultset('Run')->find(3519);
+  foreach my $status (('run pending', 'run in progress', 'run on hold')) {
+    my $sid = $schema_npg->resultset('RunStatusDict')->search({description => $status})->next->id_run_status_dict();
+    $run->current_run_status->update( {id_run_status_dict => $sid,} );
+    ok(!$n->run_ready2load(), "run is not ready to load: status $status");
+  }
+  
+  foreach my $status (('run complete', 'run mirrored', 'analysis pending', 'run cancelled',
+                       'run stopped early', 'analysis in progress', 'data discarded')) {
+    my $sid = $schema_npg->resultset('RunStatusDict')->search({description => $status})->next->id_run_status_dict();
+    $run->current_run_status->update( {id_run_status_dict => $sid,} );
+    ok($n->run_ready2load(), "run is ready to load: status $status");
+  }
 }
 
 {
@@ -63,16 +81,10 @@ lives_ok{ $schema_npg  = $util->create_test_db(q[npg_tracking::Schema],
 }
 
 {
-  cmp_deeply(npg_warehouse::loader::npg->new(schema_npg => $schema_npg, id_run => 1272)
-        ->instrument_info, {name => q[IL20], model => q[1G],}, 'instr info for run 1272');
-  cmp_deeply(npg_warehouse::loader::npg->new(schema_npg => $schema_npg, id_run => 3519)
-        ->instrument_info, {name => q[IL42], model => q[HK],}, 'instr info for run 3519');
-}
-
-{
   my $npg;
   lives_ok {$npg  = npg_warehouse::loader::npg->new( schema_npg => $schema_npg )} 'object instantiated without id_run lives';
   is(join(q[ ], sort @{$npg->dev_cost_codes}), 'S0696 S0700 S0755', 'r&d cost codes');
+  throws_ok { $npg->run_ready2load } qr/Need run id/, 'error checking readiness to load without run id';
 }
 
 1;
