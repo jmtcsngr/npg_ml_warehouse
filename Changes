@@ -1,5 +1,10 @@
 LIST OF CHANGES
 
+release 37.7
+ - wh loader bug fix to prevent dropping existing product data if
+   no new data is available (GCLP staging data not visible from seq farm
+   and other way around)  
+
 release 37.6.1
  - update/fix tests to comply with ml_warehouse v1.5 and npg_tracking v84.7 
 

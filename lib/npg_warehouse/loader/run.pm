@@ -568,26 +568,28 @@ sub _load_table {
     push @rows, $row;
   }
 
-  my $rs = $self->schema_wh->resultset($table);
+  if (@rows) {
+    my $rs = $self->schema_wh->resultset($table);
 
-  my $transaction;
-  if ($table eq $PRODUCT_TABLE_NAME) {
-    $transaction = sub {
-      $rs->search({'id_run' => $self->id_run,})->delete();
-      # Whithout the assignment this should work as a fast batch load.
-      # However, this does not see to work correctly - we got rows with
-      # some data missing. The assignment forces the per-row loading,
-      # therefore the only advantage of using this notation is not
-      # writing a loop.
-      my $r = $rs->populate(\@rows);
-    };
-  } else {
-    $transaction = sub {
-      map { $rs->update_or_create($_) } @rows;
-    };
+    my $transaction;
+    if ($table eq $PRODUCT_TABLE_NAME) {
+      $transaction = sub {
+        $rs->search({'id_run' => $self->id_run,})->delete();
+        # Whithout the assignment this should work as a fast batch load.
+        # However, this does not see to work correctly - we got rows with
+        # some data missing. The assignment forces the per-row loading,
+        # therefore the only advantage of using this notation is not
+        # writing a loop.
+        my $r = $rs->populate(\@rows);
+      };
+    } else {
+      $transaction = sub {
+        map { $rs->update_or_create($_) } @rows;
+      };
+    }
+
+    $self->schema_wh->txn_do($transaction);
   }
-
-  $self->schema_wh->txn_do($transaction);
 
   return scalar @rows;
 }
