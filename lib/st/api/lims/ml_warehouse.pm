@@ -5,10 +5,11 @@ use MooseX::StrictConstructor;
 use Carp;
 
 use st::api::lims;
+use npg_tracking::util::types;
 use WTSI::DNAP::Warehouse::Schema;
 use WTSI::DNAP::Warehouse::Schema::Result::IseqFlowcell;
-with qw/  
-          npg_tracking::glossary::lane
+
+with qw/  npg_tracking::glossary::lane
           npg_tracking::glossary::tag
           npg_tracking::glossary::flowcell /;
 
@@ -31,6 +32,40 @@ in WTSI::DNAP::Warehouse::Schema.
 =head2 flowcell_barcode
 
 =head2 id_flowcell_lims
+
+=head2 id_run
+
+id_run, optional attribute.
+
+=cut
+has 'id_run' =>       ( isa             => 'Maybe[NpgTrackingRunId]',
+                        is              => 'ro',
+                        required        => 0,
+                        lazy_build      => 1,
+);
+sub _build_id_run {
+  my $self = shift;
+  if (not $self->has_flowcell_barcode and not $self->has_id_flowcell_lims) {
+    croak 'Require flowcell_barcode or id_flowcell_lims to try to find id_run';
+  }
+  my%search;
+  if($self->has_flowcell_barcode){
+    $search{'flowcell_barcode'} = $self->flowcell_barcode;
+  }
+  if($self->has_id_flowcell_lims){
+    $search{'id_flowcell_lims'} = $self->id_flowcell_lims;
+  }
+  my$id_run_rs=$self->iseq_flowcell->related_resultset('iseq_product_metrics')->search(\%search,{'columns'=>[qw(id_run)], 'distinct'=>1});
+  my$count = $id_run_rs->count;
+  croak "Found more than one ($count) id_run" if ($count > 1);
+  if($count){
+    return $id_run_rs->first->id_run;
+  }
+  carp join q( ), 'No id_run set yet',
+    ($self->has_flowcell_barcode ? ('flowcell_barcode:'.$self->flowcell_barcode) : ()),
+    ($self->has_id_flowcell_lims ? ('id_flowcell_lims:'.$self->id_flowcell_lims) : ());
+  return;
+}
 
 =head2 position
 
@@ -61,8 +96,8 @@ sub _build_iseq_flowcell {
 #######
 # This role requires iseq_flowcell, which is implemented as
 # an attribute rather than as a method in this class, hence,
-# according to Moose documentation, the need to consule the
-#role after the attribute was defined.
+# according to Moose documentation, the need to consume the
+# role after the attribute was defined.
 
 with qw/ WTSI::DNAP::Warehouse::Schema::Query::IseqFlowcell /;
 
@@ -91,7 +126,7 @@ around 'query_resultset' => sub {
   my $original = $self->$orig();
   my $rs = $original;
   if ($self->tag_index) {
-    $rs = $rs->search({tag_index => $self->tag_index});
+    $rs = $rs->search({'me.tag_index' => $self->tag_index});
   }
   if ($rs->count == 0) {
     croak 'No record retrieved for ' . $self->to_string;
@@ -99,11 +134,17 @@ around 'query_resultset' => sub {
   return $original;
 };
 
+=head2 children
+
+=cut
+
 has '_lchildren' =>      ( isa             => 'ArrayRef',
+                           traits          => ['Array'],
                            is              => 'ro',
                            init_arg        => undef,
                            lazy_build      => 1,
                            clearer         => 'free_children',
+                           handles         => { children => 'elements'},
 );
 sub _build__lchildren {
   my $self = shift;
@@ -145,14 +186,6 @@ sub _build__lchildren {
   }
 
   return \@children;
-}
-
-=head2 children
-
-=cut
-sub children {
-  my $self = shift;
-  return @{$self->_lchildren};
 }
 
 has 'is_pool' =>         ( isa             => 'Bool',
@@ -220,7 +253,7 @@ sub _build__dbix_row {
     if (!$self->is_pool) {
       my $rs;
       if ($self->tag_index) {
-        $rs = $self->query_resultset->search({tag_index => $self->tag_index});
+        $rs = $self->query_resultset->search({'me.tag_index' => $self->tag_index});
       } else {
         $rs = $self->query_resultset->search({entity_type => [
           $WTSI::DNAP::Warehouse::Schema::Query::IseqFlowcell::NON_INDEXED_LIBRARY,
@@ -282,6 +315,8 @@ __END__
 =item MooseX::StrictConstructor
 
 =item Carp
+
+=item npg_tracking::util::types
 
 =item npg_tracking::glossary::lane
 

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 241;
+use Test::More tests => 250;
 use Test::Exception;
 use Test::Warn;
 use Test::Deep;
@@ -187,10 +187,10 @@ my $init = { _autoqc_store => $autoqc_store,
   $loader->load();
 
   my $values = {
-          1 => {'raw_cluster_density' => 95465.880,  'pf_cluster_density' => 11496.220, 'q30_yield_kb_reverse_read' => '105906', 'q30_yield_kb_forward_read' => '98073', 'q40_yield_kb_forward_read' => '0'},
+          1 => {'raw_cluster_density' => 95465.880,  'pf_cluster_density' => 11496.220, 'q30_yield_kb_reverse_read' => '105906', 'q30_yield_kb_forward_read' => '98073', 'q40_yield_kb_forward_read' => '0', 'unexpected_tags_percent' => 0.66},
           2 => {'raw_cluster_density' => 325143.800, 'pf_cluster_density' => 82325.490, 'q30_yield_kb_reverse_read' => '1003112','q30_yield_kb_forward_read' => '563558'},
           3 => {'raw_cluster_density' => 335626.700, 'pf_cluster_density' => 171361.900,'q30_yield_kb_reverse_read' => '1011728','q30_yield_kb_forward_read' => '981688'},
-          4 => {'raw_cluster_density' => 175608.400, 'pf_cluster_density' => 161077.600,'q30_yield_kb_reverse_read' => '714510', 'q30_yield_kb_forward_read' => '745267', 'q40_yield_kb_forward_read' => '56', 'q40_yield_kb_reverse_read' => '37',},
+          4 => {'raw_cluster_density' => 175608.400, 'pf_cluster_density' => 161077.600,'q30_yield_kb_reverse_read' => '714510', 'q30_yield_kb_forward_read' => '745267', 'q40_yield_kb_forward_read' => '56', 'q40_yield_kb_reverse_read' => '37'},
           5 => {'raw_cluster_density' => 443386.900, 'pf_cluster_density' => 380473.100,'q30_yield_kb_reverse_read' => '1523282','q30_yield_kb_forward_read' => '1670331'},
           6 => {'raw_cluster_density' => 454826.200, 'pf_cluster_density' => 397424.100,'q30_yield_kb_reverse_read' => '1530965','q30_yield_kb_forward_read' => '1689674'},
           7 => {'raw_cluster_density' => 611192.000, 'pf_cluster_density' => 465809.300,'q30_yield_kb_reverse_read' => '997068', 'q30_yield_kb_forward_read' => '1668517'},
@@ -198,13 +198,15 @@ my $init = { _autoqc_store => $autoqc_store,
                };
 
   my $rs = $schema_wh->resultset($RUN_LANE_TABLE_NAME)->search({id_run => 4333},);
+
   is ($rs->count, 8, '8 rows loaded for run 4333');
   my $row;
   while ($row = $rs->next) {
     my $position = $row->position;
     foreach my $column (
-        qw/raw_cluster_density pf_cluster_density q30_yield_kb_forward_read q30_yield_kb_reverse_read/) {
+        qw/raw_cluster_density pf_cluster_density q30_yield_kb_forward_read q30_yield_kb_reverse_read unexpected_tags_percent/) {
       is($row->$column, $values->{$position}->{$column}, qq[$column value for run 4333 position $position]);
+
     }
   }
 
@@ -432,6 +434,7 @@ my $init = { _autoqc_store => $autoqc_store,
   cmp_ok(sprintf('%.2f',$lane->num_reads()), q(==), 308368522, 'bam number of reads');
   cmp_ok(sprintf('%.2f',$lane->percent_mapped()), q(==), 98.19, 'bam mapped percent');
   cmp_ok(sprintf('%.2f',$lane->percent_duplicate()), q(==), 24.63, 'bam duplicate percent');
+  is ($lane->chimeric_reads_percent, 0.26, 'chimeric reads');
 
   $lane = $schema_wh->resultset($PRODUCT_TABLE_NAME)->search({id_run => $id_run, position=>4,tag_index=>undef},)->first;
   ok ($lane, 'product row for lane 4 is present');
@@ -608,6 +611,7 @@ my $init = { _autoqc_store => $autoqc_store,
   $row = $rs->next;
   is($row->insert_size_num_modes, 2, 'num modes');
   is($row->insert_size_normal_fit_confidence, 1, 'confidence capped to 1');
+
 }
 
 {

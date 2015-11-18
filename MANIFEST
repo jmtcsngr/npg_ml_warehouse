@@ -5,6 +5,7 @@ README
 bin/npg_mlwarehouse_fkrepair
 bin/npg_run_statuses2mlwarehouse
 bin/npg_runs2mlwarehouse
+lib/npg_tracking/daemon/fkrepair.pm
 lib/npg_warehouse/fk_repair.pm
 lib/npg_warehouse/loader/autoqc.pm
 lib/npg_warehouse/loader/base.pm
@@ -21,6 +22,7 @@ t/10-npg_warehouse-loader-run.t
 t/10-npg_warehouse-loader-run_status.t
 t/10-st-api-lims-ml_warehouse.t
 t/20-npg_warehouse-loader-run.t
+t/30-npg_tracking-daemon-fkrepair.t
 t/00-critic.t
 t/00-distribution.t
 t/00-podcoverage.t

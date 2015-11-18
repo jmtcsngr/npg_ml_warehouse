@@ -1,7 +1,8 @@
 use strict;
 use warnings;
-use Test::More tests => 139;
+use Test::More tests => 145;
 use Test::Exception;
+use Test::Warn;
 use Test::Deep;
 use Moose::Meta::Class;
 
@@ -45,6 +46,9 @@ qr/No record retrieved for st::api::lims::ml_warehouse flowcell_barcode 42UMBAAX
       mlwh_schema      => $schema_wh,
       flowcell_barcode => '42UMBAAXX')->query_resultset->count,
    'data retrieved for existing barcode');
+  is (st::api::lims::ml_warehouse->new(
+      mlwh_schema      => $schema_wh,
+      flowcell_barcode => '42UMBAAXX')->id_run, 3905, 'find id_run if in product metrics table');
   ok (st::api::lims::ml_warehouse->new(
       mlwh_schema      => $schema_wh,
       id_flowcell_lims => 4775)->query_resultset->count,
@@ -53,12 +57,36 @@ qr/No record retrieved for st::api::lims::ml_warehouse flowcell_barcode 42UMBAAX
       mlwh_schema      => $schema_wh,
       id_flowcell_lims => '4775')->query_resultset->count,
     'data retrieved for existing flowcell id supplied as a string');
+  is (st::api::lims::ml_warehouse->new(
+      mlwh_schema      => $schema_wh,
+      id_flowcell_lims => '4775')->id_run, 3905, 'find id_run if in product metrics table');
+  my $product_metrics_row = st::api::lims::ml_warehouse->new(
+      mlwh_schema      => $schema_wh,
+      id_flowcell_lims => '4775')->query_resultset()->next()->iseq_product_metrics()->next();
+  $product_metrics_row->update({id_run => 3906});
+  throws_ok { st::api::lims::ml_warehouse->new(
+      mlwh_schema      => $schema_wh,
+      id_flowcell_lims => '4775')->id_run }
+    qr/Found more than one \(2\) id_run/,
+    'error finding id_run if multiple values found';
+  lives_ok {st::api::lims::ml_warehouse->new(
+      id_run           => 3905,
+      mlwh_schema      => $schema_wh,
+      id_flowcell_lims => '4775')->id_run}
+    'no checks when the value is set by the caller';
+
   ok (st::api::lims::ml_warehouse->new(
       mlwh_schema      => $schema_wh,
       id_flowcell_lims => 22043,
       flowcell_barcode => 'barcode')->query_resultset->count,
     'data retrieved as long as flowcell id is valid');
-
+  my $id_run;
+  warning_like { $id_run = st::api::lims::ml_warehouse->new(
+      mlwh_schema      => $schema_wh,
+      flowcell_barcode => 'barcode')->id_run }
+    qr/No id_run set yet/,
+    'warning finding id_run if not in product metrics table';
+  is($id_run, undef, 'run id undefined');
   throws_ok { st::api::lims::ml_warehouse->new(
                                  mlwh_schema      => $schema_wh,
                                  id_flowcell_lims => 22043,

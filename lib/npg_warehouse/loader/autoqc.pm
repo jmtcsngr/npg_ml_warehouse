@@ -307,7 +307,18 @@ sub _bam_flagstats {
     if ($check_name =~ /_human/xsmg) { return; }
     my $num_reads = $result->total_reads;
     $self->_copy_fields({bam_num_reads => $num_reads,}, $autoqc, $position, $tag_index);
+    my $chimeric_reads = $self->_truncate_float($num_reads ? $result->mate_mapped_defferent_chr_5 * $HUNDRED / $num_reads : 0.00);
+    $self->_copy_fields({chimeric_reads_percent => $chimeric_reads}, $autoqc, $position, $tag_index);
+    return;
+}
 
+sub _upstream_tags {
+    my ($self, $result, $autoqc) = @_;
+    my $position = $result->position;
+    my $tag_index = $result->tag_index;
+    my $total = $result->total_tag0_reads;
+    my $unexpected_tags_percent = $self->_truncate_float($total ? $result->tag0_perfect_match_reads * $HUNDRED / $total : 0.00);
+    $self->_copy_fields({unexpected_tags_percent => $unexpected_tags_percent}, $autoqc, $position, $tag_index);
     return;
 }
 
