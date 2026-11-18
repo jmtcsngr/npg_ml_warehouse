@@ -1,8 +1,11 @@
 LIST OF CHANGES
 
+release 53.9.0 (2026-11-18)
  - Added a script 'npg_elembio_qc_outcomes2mlwarehouse' to populate/update
    manual QC outcomes in eseq_run_lane_metrics and eseq_product_metrics tables.
    The values are read directly from the QC database.
+ - GHA: refinement, matrix change and cope with Ubuntu 26.04 Perl 5.34.1
+   combination
 
 release 53.8.2 (2026-09-02)
  - Manifest and LibraryInfo parsers for Ultimagen have been moved to
